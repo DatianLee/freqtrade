@@ -1,0 +1,21 @@
+---
+services:
+  ui_gateway:
+    build:
+      context: .
+      dockerfile: extensions/ui_gateway/Dockerfile
+    container_name: freqtrade-ui-gateway
+    environment:
+      FREQTRADE_API_URL: http://freqtrade:8080
+      FREQTRADE_API_USERNAME: ${FREQTRADE_API_USERNAME:-Freqtrader}
+      FREQTRADE_API_PASSWORD: ${FREQTRADE_API_PASSWORD:-SuperSecret1!}
+      FREQTRADE_API_TIMEOUT: ${FREQTRADE_API_TIMEOUT:-10}
+      BINANCE_CONFIG_PATH: /freqtrade/user_data/config.json
+      TELEGRAM_CONFIG_PATH: /freqtrade/user_data/config.json
+      HYPERLIQUID_API_KEY: ${HYPERLIQUID_API_KEY:-}
+      HYPERLIQUID_API_SECRET: ${HYPERLIQUID_API_SECRET:-}
+      HYPERLIQUID_WS_URL: ${HYPERLIQUID_WS_URL:-}
+    ports:
+      - "127.0.0.1:9000:9000"
+    depends_on:
+      - freqtrade
